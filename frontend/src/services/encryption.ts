@@ -1,7 +1,6 @@
-import dotenv from 'dotenv';
 import crypto from 'crypto-js';
 
-function encryptCardNumber(cardNumber) {
+function encryptCardNumber(cardNumber: string): string {
   const encryptionKey = import.meta.env.VITE_ENCRYPTION_KEY;
   if (!encryptionKey) {
     throw new Error('Encryption key is not defined in environment variables');
