@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { validateCard } from './services/api';
 
 export default function App() {
   const [cardNumber, setCardNumber] = useState('');
@@ -7,18 +8,9 @@ export default function App() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-
     try {
-      const response = await fetch('http://localhost:3000/v1/credit-card/validate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cardNumber }),
-      });
-      
-      const data = await response.json();
-      console.log('Validation result:', data);
+      const response = await validateCard(cardNumber);
+      console.log('Validation response:', response);
     } catch (error) {
       console.error('Error validating card:', error);
     } finally {
