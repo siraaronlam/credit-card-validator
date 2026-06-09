@@ -1,7 +1,7 @@
 export class CreditCardService {
   constructor() {}
 
-  validateCard(): boolean {
+  validateCard(cardNumber: string): boolean {
     return true;
   }
 }
