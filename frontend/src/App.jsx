@@ -3,6 +3,7 @@ import { validateCard } from './services/api';
 
 export default function App() {
   const [cardNumber, setCardNumber] = useState('');
+  const [validationResult, setValidationResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -10,9 +11,9 @@ export default function App() {
     setIsLoading(true);
     try {
       const response = await validateCard(cardNumber);
-      console.log('Validation response:', response);
+      setValidationResult(response);
     } catch (error) {
-      console.error('Error validating card:', error);
+      setValidationResult({ isValid: false });
     } finally {
       setIsLoading(false);
     }
@@ -34,6 +35,11 @@ export default function App() {
           {isLoading ? 'Validating...' : 'Validate'}
         </button>
       </form>
+      {validationResult && (
+        <div className={`validation-result ${validationResult.isValid ? 'valid' : 'invalid'}`}>
+          <p>{validationResult.isValid ? 'Valid card number' : 'Invalid card number'}</p>
+        </div>
+      )}
     </main>
   );
 }

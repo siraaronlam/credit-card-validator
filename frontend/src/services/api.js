@@ -16,7 +16,6 @@ async function validateCard(cardNumber) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error validating card:', error);
     throw error;
   }
 }

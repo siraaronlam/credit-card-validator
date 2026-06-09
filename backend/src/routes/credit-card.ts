@@ -6,7 +6,7 @@ export function createCreditCardRouter(creditCardService: CreditCardService): Ro
 
   router.post("/validate", (req: Request, res: Response): void => {
     const { cardNumber } = req.body;
-    res.json({ message: creditCardService.validateCard(cardNumber) });
+    res.json({ isValid: creditCardService.validateCard(cardNumber) });
   });
   
   return router;

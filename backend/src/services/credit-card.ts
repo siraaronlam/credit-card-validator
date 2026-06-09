@@ -37,7 +37,29 @@ export class CreditCardService {
 
   validateCard(cardNumber: string): boolean {
     const decryptedCardNumber = this.decryptCardNumber(cardNumber);
-    console.log('Decrypted Card Number:', decryptedCardNumber);
-    return true;
+    return this.luhnCheck(decryptedCardNumber);
+  }
+
+  luhnCheck(cardNumber: string): boolean {
+    // Remove any non-digit characters
+    let cleanValue = cardNumber.replace(/\D/g, '');
+
+    // Check if value is empty or is a valid credit card number length (13-19 digits)
+    if (!cleanValue || cleanValue.length < 13 || cleanValue.length > 19) {
+      return false;
+    }
+
+    let checks = 0;
+    if (cleanValue && /[0-9-\s]+/.test(cleanValue)) {
+        cleanValue.split('').forEach((v, n) => {
+            let digits = parseInt(v, 10);
+            if (!((cleanValue.length + n) % 2) && (digits *= 2) > 9) {
+                digits -= 9;
+            }
+            checks += digits;
+        });
+    }
+
+    return (checks % 10) === 0;
   }
 }
