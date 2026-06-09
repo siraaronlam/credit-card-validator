@@ -36,9 +36,14 @@ export default function CreditCardValidator() {
         </button>
       </form>
       {validationResult && (
-        <div className={`validation-result ${validationResult.isValid ? 'valid' : 'invalid'}`}>
-          <p>{validationResult.isValid ? 'Valid card number' : 'Invalid card number'}</p>
-          {validationResult.errorMessage && <p className="error-message">{validationResult.errorMessage}</p>}
+        <div className="modal-backdrop">
+          <div className="modal">
+            <p>{validationResult.isValid ? 'Valid card number' : 'Invalid card number'}</p>
+            {validationResult.errorMessage && <p className="error-message">{validationResult.errorMessage}</p>}
+            <button type="button" onClick={() => setValidationResult(null)}>
+              Close
+            </button>
+          </div>
         </div>
       )}
     </div>
