@@ -1,16 +1,16 @@
 import { encryptCardNumber } from './encryption';
 
 async function validateCard(cardNumber) {
-    const encryptedCardNumber = encryptCardNumber(cardNumber);
+  const encryptedCardNumber = encryptCardNumber(cardNumber);
   try {
     const response = await fetch('http://localhost:3000/v1/credit-card/validate', {
-      method: 'POST',
-      headers: {
+    method: 'POST',
+    headers: {
         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    },
+    body: JSON.stringify({
         cardNumber: encryptedCardNumber,
-      }),
+    }),
     });
     
     const data = await response.json();
