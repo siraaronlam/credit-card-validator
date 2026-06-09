@@ -1,4 +1,4 @@
-import { encryptCardNumber } from './encryption.js';
+import { encryptCardNumber } from './encryption';
 
 export interface ValidateCardResponse {
   isValid: boolean;

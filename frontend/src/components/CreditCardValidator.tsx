@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
-import { validateCard } from '../services/api';
+import { type FormEvent, useState } from 'react';
+import { type ValidateCardResponse, validateCard } from '../services/api';
 
 export default function CreditCardValidator() {
   const [cardNumber, setCardNumber] = useState('');
-  const [validationResult, setValidationResult] = useState(null);
+  const [validationResult, setValidationResult] = useState<ValidateCardResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     try {
       const response = await validateCard(cardNumber);
       setValidationResult(response);
     } catch (error) {
-      setValidationResult({ isValid: false, errorMessage: error.message });
+      const message = error instanceof Error ? error.message : 'Unable to validate card number';
+      setValidationResult({ isValid: false, errorMessage: message });
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="credit-card-validator">
